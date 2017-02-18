@@ -13,33 +13,67 @@
 <p id="wins"> Wins: </p>
 <p id="losses"> Losses: </p>
 <p id="letters-guessed"> Letters guessed: </p>
+<p id= "guessesLeft"> Guesses Left: 10</p>
 
 <script type="text/javascript">
-
+var letterOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var wins = 0 ;
 var losses = 0 ;
 var guessesLeft = 10;
-var lettersUsed = [];
-var letterOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var lettersUsed = new Array();
 
+function guessesLeft() {
+  document.getElementById("guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
+}
+
+
+var resetGame = function() {
+guessesLeft = 10
+lettersUsed = [];
+computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)].toLowerCase(); {
+}
+console.log("Computer Guess: "+ computerGuess);
+}
+
+
+//COMPUTER LETTER GUESS//
+var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)].toLowerCase(); {
+}
+console.log("computer guess: " + computerGuess);
+
+//USER GUESS//
  document.onkeyup = function(event) {
  	var userGuess = event.key.toLowerCase();
- 	var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)].toLowerCase(); {
+ 	console.log("user guess: " + userGuess);
+  lettersUsed.push(userGuess);
+	document.getElementById("letters-guessed").innerHTML = "Letters guessed: "+lettersUsed;
+  //guessesLeft = guessesLeft - 1
+	document.getElementById("guessesLeft").innerHTML = "Guesses Left: "+guessesLeft
 
  	if (userGuess === computerGuess) {
  		wins++;
- 		document.querySelector("#wins").innerHtml = ""
+ 		document.getElementById("wins").innerHTML = "Wins: " + wins;
+ 		alert("You guessed right!");
+ 			console.log("wins :" + wins);
+ 			resetGame();
 
  	}
 
- 	else {
+ 	else  if (userGuess!== computerGuess && guessesLeft < 1 ){
+ 		losses++;
+ 		document.getElementById("losses").innerHTML = "Losses: " + losses;
+ 		console.log("losses :" + losses);
+ 		alert("You lose!");
+ 		resetGame ();
+
+ 	}
+
+ 	else if (userGuess !== computerGuess && guessesLeft > 0) {
  		guessesLeft--;
- 		lettersUsed.push(userGuess);
- 		document.querySelecot('#losses').innerHtml=""
  	}
- 
-  }
-}
+
+    }
+
 </script>
 </body>
 </html>
